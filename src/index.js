@@ -28,13 +28,14 @@ const managerQuestions = [
     type: "input",
     message: "What is your office number?",
   },
-  {
-    name: "nextStep",
-    type: "list",
-    message: "Would you like to add a team member?",
-    choices: ["Yes, an Engineer", "Yes, an Intern", "No, my team is complete"],
-  },
 ];
+
+const confirmNextStep = {
+  name: "nextStep",
+  type: "list",
+  message: "Would you like to add a team member?",
+  choices: ["Yes, an engineer", "Yes, an intern", "No, my team is complete"],
+};
 
 const engineerQuestions = [
   {
@@ -82,16 +83,39 @@ const internQuestions = [
   },
 ];
 
-const generateHTML = (answers) => {
+// make util function and export
+const generateHTML = (managerAnswers) => {
   // return `...`
 };
 
 const init = async () => {
-  const answers = await inquirer.prompt(managerQuestions);
+  let inProgress = true;
 
-  const html = generateHTML(answers);
+  const allAnswers = [];
 
-  fs.writeFileSync(".dist/team-profile.html", html);
+  const managerAnswers = await inquirer.prompt(managerQuestions);
+
+  allAnswers.push(managerAnswers);
+
+  while (inProgress) {
+    const nextStep = await inquirer.prompt(confirmNextStep);
+
+    if (nextStep.includes("engineer")) {
+      const engineerAnswers = await inquirer.prompt(engineerQuestions);
+
+      allAnswers.push(engineerAnswers);
+    } else if (nextStep.includes("intern")) {
+      const internAnswers = await inquirer.prompt(internQuestions);
+
+      allAnswers.push(internAnswers);
+    } else if (nextStep.includes("No")) {
+      inProgress = false;
+    }
+  }
+
+  //   const html = generateHTML(allAnswers);
+
+  //   fs.writeFileSync(".dist/team-profile.html", html);
 
   console.log(
     figlet.textSync("Profile generated!", {
