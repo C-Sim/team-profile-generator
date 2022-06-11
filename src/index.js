@@ -1,7 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const figlet = require("figlet");
-const chalk = require("chalk");
 
 const managerQuestions = [
   {
@@ -82,3 +81,27 @@ const internQuestions = [
     message: "What is the intern's school?",
   },
 ];
+
+const generateHTML = (answers) => {
+  // return `...`
+};
+
+const init = async () => {
+  const answers = await inquirer.prompt(managerQuestions);
+
+  const html = generateHTML(answers);
+
+  fs.writeFileSync(".dist/team-profile.html", html);
+
+  console.log(
+    figlet.textSync("Profile generated!", {
+      font: "Standard",
+      horizontalLayout: "default",
+      verticalLayout: "default",
+      width: 64,
+      whitespaceBreak: true,
+    })
+  );
+};
+
+init();

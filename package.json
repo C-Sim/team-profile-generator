@@ -7,7 +7,10 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "jest -coverage",
+    "test:watch": "jest -watch",
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +30,7 @@
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
-    "jest": "^28.1.1"
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16"
   }
 }
