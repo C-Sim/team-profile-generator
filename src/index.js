@@ -1,6 +1,10 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const figlet = require("figlet");
+const path = require("path");
+const { mainModule } = require("process");
+
+// const main = document.getElementById("main");
 
 const managerQuestions = [
   {
@@ -83,21 +87,108 @@ const internQuestions = [
   },
 ];
 
-// make util function and export
-const generateHTML = (managerAnswers) => {
-  // return `...`
+const generateHTML = (managerInfo) => {
+  return `<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+        />
+        <link rel="stylesheet" href="./assets/css/styles.css" />
+        <title>Team Profile</title>
+      </head>
+      <body>
+        <h1 class="team">${managerInfo.teamName}</h1>
+        
+        <main id="main">
+            <h2 class="role-name">Manager</h2>
+            <div class="role-container">
+    
+                <div class="role">
+                    
+                    <p class="name">${managerInfo.name}</p>
+                    <p class="employee-id">Employee ID: ${managerInfo.id}</p>
+                    <a class="email" href="mailto:${managerInfo.email}">
+                        <i class="fa-solid fa-envelope" alt="eMail"></i> ${
+                          managerInfo.email
+                        }
+                    </a>
+                    <p class="location"><i class="fa-solid fa-building"></i> Office ${
+                      managerInfo.officeNumber
+                    }</p>
+                </div> 
+            </div>
+            ${renderEngineers()}
+            ${renderInterns()}
+        </div>
+        <footer class="footer">
+            <i class="fa-solid fa-crown"></i> Created by Cherelle Simpson &copy 2022
+        </footer>
+      </body>
+    </html>`;
+};
+
+const createEngineers = (engineerInfo) => {
+  const renderEngineers = (each) => {
+    `<h2 class="role-name">Engineers</h2>
+        <div class="role-container">  
+            <div class="role">
+                <p class="name">${engineerInfo.name}</p>
+                <p class="employee-id">Employee ID: ${engineerInfo.id}</p>
+                <a class="email" href="mailto:${engineerInfo.email}">
+                    <i class="fa-solid fa-envelope" alt="eMail"></i> ${engineerInfo.email}
+                </a>
+                <p><a class="github" href="https://github.com/${engineerInfo.gitHub}" target="_blank"
+                ><i class="fa-brands fa-github" alt="GitHub"></i> GitHub
+                </a></p>
+            </div>              
+        </div>`;
+  };
+
+  return renderEngineers;
+
+  //   main.append(renderEngineers);
+};
+
+const createInterns = (internInfo) => {
+  const renderInterns = (each) => {
+    ` <h2 class="role-name">Interns</h2>
+      <div class="role-container">              
+          <div class="role">
+              <p class="name">${internInfo.name}</p>
+              <p class="employee-id">Employee ID: ${internInfo.id}</p>
+              <a class="email" href="mailto:${internInfo.email}">
+                  <i class="fa-solid fa-envelope" alt="eMail"></i> ${internInfo.email}
+              </a>
+              <p class="location"><i class="fa-solid fa-graduation-cap"></i> ${internInfo.school}</p>
+          </div>
+      </div>`;
+  };
+
+  return renderInterns;
+
+  //   main.append(renderInterns);
 };
 
 const init = async () => {
   let inProgress = true;
 
-  const allAnswers = [];
+  const managerInfo = [];
+  const engineerInfo = [];
+  const internInfo = [];
 
   const managerAnswers = await inquirer.prompt(managerQuestions);
 
-  allAnswers.push(managerAnswers);
+  managerAnswers.role = "Manager";
 
-  console.log(allAnswers);
+  managerInfo.push(managerAnswers);
 
   while (inProgress) {
     const nextStep = await inquirer.prompt(confirmNextStep);
@@ -107,19 +198,35 @@ const init = async () => {
     if (confirm.nextStep === "Yes, an engineer") {
       const engineerAnswers = await inquirer.prompt(engineerQuestions);
 
-      allAnswers.push(engineerAnswers);
+      engineerAnswers.role = "Engineer";
+
+      engineerInfo.push(engineerAnswers);
     } else if (confirm.nextStep === "Yes, an intern") {
       const internAnswers = await inquirer.prompt(internQuestions);
 
-      allAnswers.push(internAnswers);
+      internAnswers.role = "Intern";
+
+      internInfo.push(internAnswers);
     } else if (confirm.nextStep === "No, my team is complete") {
       inProgress = false;
     }
+
+    console.log(managerInfo, engineerInfo, internInfo);
   }
 
-  //   const html = generateHTML(allAnswers);
+  generateHTML(managerInfo);
+  createEngineers(engineerInfo);
+  createInterns(internInfo);
 
-  //   fs.writeFileSync(".dist/team-profile.html", html);
+  const html = generateHTML(managerInfo, engineerInfo, internInfo);
+
+  const filepath = path.join(
+    __dirname,
+    "../dist",
+    `${managerInfo.teamName}-profile.html`
+  );
+
+  fs.writeFileSync(filepath, html);
 
   console.log(
     figlet.textSync("Profile generated!", {
