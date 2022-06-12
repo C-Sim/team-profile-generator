@@ -9,22 +9,22 @@ const managerQuestions = [
     message: "What is your team name?",
   },
   {
-    name: "managerName",
+    name: "name",
     type: "input",
     message: "What is your name?",
   },
   {
-    name: "managerID",
+    name: "id",
     type: "input",
     message: "What is your employee ID number?",
   },
   {
-    name: "managerEmail",
+    name: "email",
     type: "input",
     message: "What is your email address?",
   },
   {
-    name: "managerOfficeNumber",
+    name: "officeNumber",
     type: "input",
     message: "What is your office number?",
   },
@@ -39,22 +39,22 @@ const confirmNextStep = {
 
 const engineerQuestions = [
   {
-    name: "engineerName",
+    name: "name",
     type: "input",
     message: "What is the engineer's name?",
   },
   {
-    name: "engineerID",
+    name: "id",
     type: "input",
     message: "What is the engineer's employee ID number?",
   },
   {
-    name: "engineerEmail",
+    name: "email",
     type: "input",
     message: "What is the engineer's email address?",
   },
   {
-    name: "engineerGitHub",
+    name: "gitHub",
     type: "input",
     message: "What is the engineer's GitHub username?",
   },
@@ -62,24 +62,24 @@ const engineerQuestions = [
 
 const internQuestions = [
   {
-    name: "internName",
+    name: "name",
     type: "input",
     message: "What is the intern's name?",
   },
   {
-    name: "internID",
+    name: "id",
     type: "input",
     message: "What is the intern's employee ID number?",
   },
   {
-    name: "internEmail",
+    name: "email",
     type: "input",
     message: "What is the intern's email address?",
   },
   {
-    name: "internSchool",
+    name: "school",
     type: "input",
-    message: "What is the intern's school?",
+    message: "What school does the intern attend?",
   },
 ];
 
@@ -97,18 +97,22 @@ const init = async () => {
 
   allAnswers.push(managerAnswers);
 
+  console.log(allAnswers);
+
   while (inProgress) {
     const nextStep = await inquirer.prompt(confirmNextStep);
 
-    if (nextStep.includes("engineer")) {
+    const confirm = nextStep;
+
+    if (confirm.nextStep === "Yes, an engineer") {
       const engineerAnswers = await inquirer.prompt(engineerQuestions);
 
       allAnswers.push(engineerAnswers);
-    } else if (nextStep.includes("intern")) {
+    } else if (confirm.nextStep === "Yes, an intern") {
       const internAnswers = await inquirer.prompt(internQuestions);
 
       allAnswers.push(internAnswers);
-    } else if (nextStep.includes("No")) {
+    } else if (confirm.nextStep === "No, my team is complete") {
       inProgress = false;
     }
   }
