@@ -1,11 +1,21 @@
 const generateManager = (managerInfo) =>
   managerInfo.map((manager) => manager.createManager()).join("");
 
-const generateEngineers = (engineerInfo) =>
-  engineerInfo.map((engineer) => engineer.createEngineer()).join("");
+const generateEngineers = (engineerInfo) => {
+  if (engineerInfo.length > 0) {
+    return engineerInfo.map((engineer) => engineer.createEngineer()).join("");
+  } else {
+    return `<p class="vacancy"> There are currently no Engineers in the team.</br>Contact the Manager via the email address above to apply for a role.</p>`;
+  }
+};
 
-const generateInterns = (internInfo) =>
-  internInfo.map((intern) => intern.createIntern()).join("");
+const generateInterns = (internInfo) => {
+  if (internInfo.length > 0) {
+    return internInfo.map((intern) => intern.createIntern()).join("");
+  } else {
+    return `<p class="vacancy"> There are currently no Interns in the team.</br>Contact the Manager via the email address above to apply for a role.</p>`;
+  }
+};
 
 const generateHTML = (managerInfo, engineerInfo, internInfo) => {
   return `<!DOCTYPE html>

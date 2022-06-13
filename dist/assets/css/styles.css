@@ -84,6 +84,11 @@ body {
   color: var(--deep-space-sparkle);
 }
 
+.vacancy {
+  text-align: center;
+  margin: 4px;
+}
+
 .footer {
   background-color: var(--deep-space-sparkle);
   color: var(--cadet-blue);
