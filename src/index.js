@@ -12,57 +12,57 @@ const {
   engineerQuestions,
   internQuestions,
 } = require("./questions");
-const Employee = require("./lib/Employee");
+const { generateHTML } = require("./generate");
 
 // const main = document.getElementById("main");
 
-const generateHTML = (manager) => {
-  return `<!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
-        />
-        <link rel="stylesheet" href="./assets/css/styles.css" />
-        <title>Team Profile</title>
-      </head>
-      <body>
-        <h1 class="team">${manager.teamName}</h1>
-        
-        <main id="main">
-            <h2 class="role-name">Manager</h2>
-            <div class="role-container">
-    
-                <div class="role">
-                    
-                    <p class="name">${manager.name}</p>
-                    <p class="employee-id">Employee ID: ${manager.id}</p>
-                    <a class="email" href="mailto:${manager.email}">
-                        <i class="fa-solid fa-envelope" alt="eMail"></i> ${
-                          manager.email
-                        }
-                    </a>
-                    <p class="location"><i class="fa-solid fa-building"></i> Office ${
-                      manager.officeNumber
-                    }</p>
-                </div> 
-            </div>
-            // ${renderEngineers()}
-            // ${renderInterns()}
-        </div>
-        <footer class="footer">
-            <i class="fa-solid fa-crown"></i> Created by Cherelle Simpson &copy 2022
-        </footer>
-      </body>
-    </html>`;
-};
+// const generateHTML = (manager) => {
+//   return `<!DOCTYPE html>
+//     <html lang="en">
+//       <head>
+//         <meta charset="UTF-8" />
+//         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+//         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+//         <link
+//           rel="stylesheet"
+//           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+//           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+//           crossorigin="anonymous"
+//           referrerpolicy="no-referrer"
+//         />
+//         <link rel="stylesheet" href="./assets/css/styles.css" />
+//         <title>Team Profile</title>
+//       </head>
+//       <body>
+//         <h1 class="team">${manager.teamName}</h1>
+
+//         <main id="main">
+//             <h2 class="role-name">Manager</h2>
+//             <div class="role-container">
+
+//                 <div class="role">
+
+//                     <p class="name">${manager.name}</p>
+//                     <p class="employee-id">Employee ID: ${manager.id}</p>
+//                     <a class="email" href="mailto:${manager.email}">
+//                         <i class="fa-solid fa-envelope" alt="eMail"></i> ${
+//                           manager.email
+//                         }
+//                     </a>
+//                     <p class="location"><i class="fa-solid fa-building"></i> Office ${
+//                       manager.officeNumber
+//                     }</p>
+//                 </div>
+//             </div>
+//             // ${renderEngineers()}
+//             // ${renderInterns()}
+//         </div>
+//         <footer class="footer">
+//             <i class="fa-solid fa-crown"></i> Created by Cherelle Simpson &copy 2022
+//         </footer>
+//       </body>
+//     </html>`;
+// };
 
 // const createEngineers = (engineerInfo) => {
 //   const renderEngineers = (each) => {
@@ -112,11 +112,12 @@ const init = async () => {
   const managerInfo = [];
   const engineerInfo = [];
   const internInfo = [];
-  const allEmployees = [];
+  //   const employees = [];
 
   const managerAnswers = await inquirer.prompt(managerQuestions);
 
   const manager = new Manager(
+    // managerAnswers
     managerAnswers.name,
     managerAnswers.id,
     managerAnswers.email,
@@ -125,8 +126,9 @@ const init = async () => {
   );
 
   managerInfo.push(manager);
+  //   employees.push(manager);
 
-  console.log(managerInfo);
+  //   console.log(employees);
   console.log(manager);
 
   while (inProgress) {
@@ -138,6 +140,7 @@ const init = async () => {
       const engineerAnswers = await inquirer.prompt(engineerQuestions);
 
       const engineer = new Engineer(
+        // engineerAnswers
         engineerAnswers.name,
         engineerAnswers.id,
         engineerAnswers.email,
@@ -145,10 +148,12 @@ const init = async () => {
       );
 
       engineerInfo.push(engineer);
+      //   employees.push(engineer);
     } else if (confirm.nextStep === "Yes, an intern") {
       const internAnswers = await inquirer.prompt(internQuestions);
 
       const intern = new Intern(
+        // internAnswers
         internAnswers.name,
         internAnswers.id,
         internAnswers.email,
@@ -156,33 +161,17 @@ const init = async () => {
       );
 
       internInfo.push(intern);
+      //   employees.push(intern);
     } else if (confirm.nextStep === "No, my team is complete") {
       inProgress = false;
     }
 
-    console.log(
-      managerInfo,
-      manager,
-      engineerInfo,
-      //   engineer,
-      internInfo
-      //   intern
-    );
+    console.log(managerInfo, engineerInfo, internInfo);
   }
-
-  //   allEmployees.push(manager, engineer, intern)
-
-  generateHTML(managerInfo);
-  //   createEngineers(engineerInfo);
-  //   createInterns(internInfo);
 
   const html = generateHTML(managerInfo, engineerInfo, internInfo);
 
-  const filepath = path.join(
-    __dirname,
-    "../dist",
-    `${managerInfo.teamName}-profile.html`
-  );
+  const filepath = path.join(__dirname, "../dist", `index.html`);
 
   fs.writeFileSync(filepath, html);
 

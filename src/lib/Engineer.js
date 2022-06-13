@@ -16,11 +16,8 @@ class Engineer extends Employee {
     return this.role;
   }
 
-  createEngineers() {
-    //   const renderEngineers = (each) => {
-    return `<h2 class="role-name">Engineers</h2>
-            <div class="role-container">
-                <div class="role">
+  createEngineer() {
+    return `<div class="role">
                     <p class="name">${this.name}</p>
                     <p class="employee-id">Employee ID: ${this.id}</p>
                     <a class="email" href="mailto:${this.email}">
@@ -29,13 +26,8 @@ class Engineer extends Employee {
                     <p><a class="github" href="https://github.com/${this.gitHub}" target="_blank"
                     ><i class="fa-brands fa-github" alt="GitHub"></i> GitHub
                     </a></p>
-                </div>
             </div>`;
   }
-
-  //   return renderEngineers;
-
-  //   //   main.append(renderEngineers);
 }
 
 module.exports = Engineer;
