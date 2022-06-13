@@ -2,7 +2,7 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 const figlet = require("figlet");
 const path = require("path");
-const { mainModule } = require("process");
+const open = require("open");
 
 // const main = document.getElementById("main");
 
@@ -26,6 +26,16 @@ const managerQuestions = [
     name: "email",
     type: "input",
     message: "What is your email address?",
+    validate: (email) => {
+      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+      if (valid) {
+        return true;
+      } else {
+        console.log("Please enter a valid email address");
+        return false;
+      }
+    },
   },
   {
     name: "officeNumber",
@@ -56,6 +66,16 @@ const engineerQuestions = [
     name: "email",
     type: "input",
     message: "What is the engineer's email address?",
+    validate: (email) => {
+      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+      if (valid) {
+        return true;
+      } else {
+        console.log("Please enter a valid email address");
+        return false;
+      }
+    },
   },
   {
     name: "gitHub",
@@ -79,6 +99,16 @@ const internQuestions = [
     name: "email",
     type: "input",
     message: "What is the intern's email address?",
+    validate: (email) => {
+      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+      if (valid) {
+        return true;
+      } else {
+        console.log("Please enter a valid email address");
+        return false;
+      }
+    },
   },
   {
     name: "school",
@@ -105,7 +135,7 @@ const generateHTML = (managerInfo) => {
         <title>Team Profile</title>
       </head>
       <body>
-        <h1 class="team">${managerInfo.teamName}</h1>
+        <h1 class="team">${manager.getTeamName()}</h1>
         
         <main id="main">
             <h2 class="role-name">Manager</h2>
@@ -227,6 +257,8 @@ const init = async () => {
   );
 
   fs.writeFileSync(filepath, html);
+
+  open(`http://localhost:port/${filepath}`, { app: "chrome" });
 
   console.log(
     figlet.textSync("Profile generated!", {
