@@ -12,6 +12,7 @@ const {
   engineerQuestions,
   internQuestions,
 } = require("./questions");
+const Employee = require("./lib/Employee");
 
 // const main = document.getElementById("main");
 
@@ -111,6 +112,7 @@ const init = async () => {
   const managerInfo = [];
   const engineerInfo = [];
   const internInfo = [];
+  const allEmployees = [];
 
   const managerAnswers = await inquirer.prompt(managerQuestions);
 
@@ -158,10 +160,17 @@ const init = async () => {
       inProgress = false;
     }
 
-    console.log(managerInfo, engineerInfo, internInfo);
+    console.log(
+      managerInfo,
+      manager,
+      engineerInfo,
+      //   engineer,
+      internInfo
+      //   intern
+    );
   }
 
-  //   const allEmployees = new employees(managerInfo, engineerInfo, internInfo);
+  //   allEmployees.push(manager, engineer, intern)
 
   generateHTML(managerInfo);
   //   createEngineers(engineerInfo);
