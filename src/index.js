@@ -3,121 +3,19 @@ const inquirer = require("inquirer");
 const figlet = require("figlet");
 const path = require("path");
 const open = require("open");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const {
+  managerQuestions,
+  confirmNextStep,
+  engineerQuestions,
+  internQuestions,
+} = require("./questions");
 
 // const main = document.getElementById("main");
 
-const managerQuestions = [
-  {
-    name: "teamName",
-    type: "input",
-    message: "What is your team name?",
-  },
-  {
-    name: "name",
-    type: "input",
-    message: "What is your name?",
-  },
-  {
-    name: "id",
-    type: "input",
-    message: "What is your employee ID number?",
-  },
-  {
-    name: "email",
-    type: "input",
-    message: "What is your email address?",
-    validate: (email) => {
-      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
-
-      if (valid) {
-        return true;
-      } else {
-        console.log("Please enter a valid email address");
-        return false;
-      }
-    },
-  },
-  {
-    name: "officeNumber",
-    type: "input",
-    message: "What is your office number?",
-  },
-];
-
-const confirmNextStep = {
-  name: "nextStep",
-  type: "list",
-  message: "Would you like to add a team member?",
-  choices: ["Yes, an engineer", "Yes, an intern", "No, my team is complete"],
-};
-
-const engineerQuestions = [
-  {
-    name: "name",
-    type: "input",
-    message: "What is the engineer's name?",
-  },
-  {
-    name: "id",
-    type: "input",
-    message: "What is the engineer's employee ID number?",
-  },
-  {
-    name: "email",
-    type: "input",
-    message: "What is the engineer's email address?",
-    validate: (email) => {
-      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
-
-      if (valid) {
-        return true;
-      } else {
-        console.log("Please enter a valid email address");
-        return false;
-      }
-    },
-  },
-  {
-    name: "gitHub",
-    type: "input",
-    message: "What is the engineer's GitHub username?",
-  },
-];
-
-const internQuestions = [
-  {
-    name: "name",
-    type: "input",
-    message: "What is the intern's name?",
-  },
-  {
-    name: "id",
-    type: "input",
-    message: "What is the intern's employee ID number?",
-  },
-  {
-    name: "email",
-    type: "input",
-    message: "What is the intern's email address?",
-    validate: (email) => {
-      valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
-
-      if (valid) {
-        return true;
-      } else {
-        console.log("Please enter a valid email address");
-        return false;
-      }
-    },
-  },
-  {
-    name: "school",
-    type: "input",
-    message: "What school does the intern attend?",
-  },
-];
-
-const generateHTML = (managerInfo) => {
+const generateHTML = (manager) => {
   return `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -135,7 +33,7 @@ const generateHTML = (managerInfo) => {
         <title>Team Profile</title>
       </head>
       <body>
-        <h1 class="team">${manager.getTeamName()}</h1>
+        <h1 class="team">${manager.teamName}</h1>
         
         <main id="main">
             <h2 class="role-name">Manager</h2>
@@ -143,20 +41,20 @@ const generateHTML = (managerInfo) => {
     
                 <div class="role">
                     
-                    <p class="name">${managerInfo.name}</p>
-                    <p class="employee-id">Employee ID: ${managerInfo.id}</p>
-                    <a class="email" href="mailto:${managerInfo.email}">
+                    <p class="name">${manager.name}</p>
+                    <p class="employee-id">Employee ID: ${manager.id}</p>
+                    <a class="email" href="mailto:${manager.email}">
                         <i class="fa-solid fa-envelope" alt="eMail"></i> ${
-                          managerInfo.email
+                          manager.email
                         }
                     </a>
                     <p class="location"><i class="fa-solid fa-building"></i> Office ${
-                      managerInfo.officeNumber
+                      manager.officeNumber
                     }</p>
                 </div> 
             </div>
-            ${renderEngineers()}
-            ${renderInterns()}
+            // ${renderEngineers()}
+            // ${renderInterns()}
         </div>
         <footer class="footer">
             <i class="fa-solid fa-crown"></i> Created by Cherelle Simpson &copy 2022
@@ -165,47 +63,47 @@ const generateHTML = (managerInfo) => {
     </html>`;
 };
 
-const createEngineers = (engineerInfo) => {
-  const renderEngineers = (each) => {
-    `<h2 class="role-name">Engineers</h2>
-        <div class="role-container">  
-            <div class="role">
-                <p class="name">${engineerInfo.name}</p>
-                <p class="employee-id">Employee ID: ${engineerInfo.id}</p>
-                <a class="email" href="mailto:${engineerInfo.email}">
-                    <i class="fa-solid fa-envelope" alt="eMail"></i> ${engineerInfo.email}
-                </a>
-                <p><a class="github" href="https://github.com/${engineerInfo.gitHub}" target="_blank"
-                ><i class="fa-brands fa-github" alt="GitHub"></i> GitHub
-                </a></p>
-            </div>              
-        </div>`;
-  };
+// const createEngineers = (engineerInfo) => {
+//   const renderEngineers = (each) => {
+//     `<h2 class="role-name">Engineers</h2>
+//         <div class="role-container">
+//             <div class="role">
+//                 <p class="name">${engineerInfo.name}</p>
+//                 <p class="employee-id">Employee ID: ${engineerInfo.id}</p>
+//                 <a class="email" href="mailto:${engineerInfo.email}">
+//                     <i class="fa-solid fa-envelope" alt="eMail"></i> ${engineerInfo.email}
+//                 </a>
+//                 <p><a class="github" href="https://github.com/${engineerInfo.gitHub}" target="_blank"
+//                 ><i class="fa-brands fa-github" alt="GitHub"></i> GitHub
+//                 </a></p>
+//             </div>
+//         </div>`;
+//   };
 
-  return renderEngineers;
+//   return renderEngineers;
 
-  //   main.append(renderEngineers);
-};
+//   //   main.append(renderEngineers);
+// };
 
-const createInterns = (internInfo) => {
-  const renderInterns = (each) => {
-    ` <h2 class="role-name">Interns</h2>
-      <div class="role-container">              
-          <div class="role">
-              <p class="name">${internInfo.name}</p>
-              <p class="employee-id">Employee ID: ${internInfo.id}</p>
-              <a class="email" href="mailto:${internInfo.email}">
-                  <i class="fa-solid fa-envelope" alt="eMail"></i> ${internInfo.email}
-              </a>
-              <p class="location"><i class="fa-solid fa-graduation-cap"></i> ${internInfo.school}</p>
-          </div>
-      </div>`;
-  };
+// const createInterns = (internInfo) => {
+//   const renderInterns = (each) => {
+//     ` <h2 class="role-name">Interns</h2>
+//       <div class="role-container">
+//           <div class="role">
+//               <p class="name">${internInfo.name}</p>
+//               <p class="employee-id">Employee ID: ${internInfo.id}</p>
+//               <a class="email" href="mailto:${internInfo.email}">
+//                   <i class="fa-solid fa-envelope" alt="eMail"></i> ${internInfo.email}
+//               </a>
+//               <p class="location"><i class="fa-solid fa-graduation-cap"></i> ${internInfo.school}</p>
+//           </div>
+//       </div>`;
+//   };
 
-  return renderInterns;
+//   return renderInterns;
 
-  //   main.append(renderInterns);
-};
+//   //   main.append(renderInterns);
+// };
 
 const init = async () => {
   let inProgress = true;
@@ -216,9 +114,18 @@ const init = async () => {
 
   const managerAnswers = await inquirer.prompt(managerQuestions);
 
-  managerAnswers.role = "Manager";
+  const manager = new Manager(
+    managerAnswers.name,
+    managerAnswers.id,
+    managerAnswers.email,
+    managerAnswers.officeNumber,
+    managerAnswers.teamName
+  );
 
-  managerInfo.push(managerAnswers);
+  managerInfo.push(manager);
+
+  console.log(managerInfo);
+  console.log(manager);
 
   while (inProgress) {
     const nextStep = await inquirer.prompt(confirmNextStep);
@@ -228,15 +135,25 @@ const init = async () => {
     if (confirm.nextStep === "Yes, an engineer") {
       const engineerAnswers = await inquirer.prompt(engineerQuestions);
 
-      engineerAnswers.role = "Engineer";
+      const engineer = new Engineer(
+        engineerAnswers.name,
+        engineerAnswers.id,
+        engineerAnswers.email,
+        engineerAnswers.gitHub
+      );
 
-      engineerInfo.push(engineerAnswers);
+      engineerInfo.push(engineer);
     } else if (confirm.nextStep === "Yes, an intern") {
       const internAnswers = await inquirer.prompt(internQuestions);
 
-      internAnswers.role = "Intern";
+      const intern = new Intern(
+        internAnswers.name,
+        internAnswers.id,
+        internAnswers.email,
+        internAnswers.school
+      );
 
-      internInfo.push(internAnswers);
+      internInfo.push(intern);
     } else if (confirm.nextStep === "No, my team is complete") {
       inProgress = false;
     }
@@ -244,9 +161,11 @@ const init = async () => {
     console.log(managerInfo, engineerInfo, internInfo);
   }
 
+  //   const allEmployees = new employees(managerInfo, engineerInfo, internInfo);
+
   generateHTML(managerInfo);
-  createEngineers(engineerInfo);
-  createInterns(internInfo);
+  //   createEngineers(engineerInfo);
+  //   createInterns(internInfo);
 
   const html = generateHTML(managerInfo, engineerInfo, internInfo);
 
