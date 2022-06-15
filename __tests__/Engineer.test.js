@@ -8,27 +8,27 @@ describe("Engineer", () => {
 
   const engineer = new Engineer(mockName, mockId, mockEmail, mockGitHub);
 
-  it("should be an instance of Engineer", async () => {
+  it("should be an instance of Engineer", () => {
     expect(engineer).toBeInstanceOf(Engineer);
   });
 
-  it("should return the expected name", async () => {
+  it("should return the expected name", () => {
     expect(engineer.getName()).toEqual(mockName);
   });
 
-  it("should return the expected id", async () => {
+  it("should return the expected id", () => {
     expect(engineer.getId()).toEqual(mockId);
   });
 
-  it("should return the expected email", async () => {
+  it("should return the expected email", () => {
     expect(engineer.getEmail()).toEqual(mockEmail);
   });
 
-  it("should return the expected GitHub username", async () => {
+  it("should return the expected GitHub username", () => {
     expect(engineer.getGitHub()).toEqual(mockGitHub);
   });
 
-  it("should return the role of Engineer", async () => {
+  it("should return the role of Engineer", () => {
     expect(engineer.getRole()).toEqual("Engineer");
   });
 });
