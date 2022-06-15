@@ -13,6 +13,8 @@ const {
   internQuestions,
 } = require("./questions");
 const { generateHTML } = require("./generate");
+const PORT = 5500;
+const LOCALHOST = "127.0.0.1";
 
 const init = async () => {
   let inProgress = true;
@@ -82,7 +84,7 @@ const init = async () => {
 
   fs.writeFileSync(filepath, html);
 
-  open(`http://localhost:port/${filepath}`, { app: "chrome" });
+  open(`http://${LOCALHOST}:${PORT}/dist/index.html`, { app: "chrome" });
 
   console.log(
     figlet.textSync("Profile generated!", {

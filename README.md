@@ -1,5 +1,8 @@
 # team-profile-generator ![badge](https://img.shields.io/badge/MIT-license-green)
 
+[Deployed GitHub URL](...)
+[Demo](...)
+
 ## Contents
 
 - [Description](#description)
