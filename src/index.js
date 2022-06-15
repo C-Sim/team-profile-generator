@@ -30,8 +30,6 @@ const init = async () => {
     managerAnswers.teamName
   );
 
-  console.log(manager);
-
   while (inProgress) {
     const { nextStep } = await inquirer.prompt(confirmNextStep);
 
@@ -60,8 +58,6 @@ const init = async () => {
     } else {
       inProgress = false;
     }
-
-    console.log(manager, engineerInfo, internInfo);
   }
 
   const html = generateHTML(manager, engineerInfo, internInfo);
