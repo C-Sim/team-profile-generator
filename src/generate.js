@@ -2,7 +2,7 @@ const generateEngineers = (engineerInfo) => {
   if (engineerInfo.length > 0) {
     return engineerInfo.map((engineer) => engineer.createEngineer()).join("");
   } else {
-    return `<p class="vacancy"> There are currently no Engineers in the team.</br>Contact the Manager via the email address above to apply for a role.</p>`;
+    return `<p class="vacancy"> There are currently no Engineers in the team.</br></br>Contact the Manager via the email address above to apply for a role.</p>`;
   }
 };
 
@@ -10,7 +10,7 @@ const generateInterns = (internInfo) => {
   if (internInfo.length > 0) {
     return internInfo.map((intern) => intern.createIntern()).join("");
   } else {
-    return `<p class="vacancy"> There are currently no Interns in the team.</br>Contact the Manager via the email address above to apply for a role.</p>`;
+    return `<p class="vacancy"> There are currently no Interns in the team.</br></br>Contact the Manager via the email address above to apply for a role.</p>`;
   }
 };
 
