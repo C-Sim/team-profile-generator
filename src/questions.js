@@ -67,7 +67,21 @@ const confirmNextStep = {
   name: "nextStep",
   type: "list",
   message: "Would you like to add a team member?",
-  choices: ["Yes, an engineer", "Yes, an intern", "No, my team is complete"],
+  choices: [
+    {
+      name: "Yes, an engineer",
+      value: "engineer",
+      short: "eng",
+    },
+    {
+      name: "Yes, an intern",
+      value: "intern",
+      short: "int",
+    },
+    {
+      name: "No, my team is complete",
+    },
+  ],
 };
 
 const engineerQuestions = [

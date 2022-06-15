@@ -13,8 +13,6 @@ const {
   internQuestions,
 } = require("./questions");
 const { generateHTML } = require("./generate");
-const PORT = 5500;
-const LOCALHOST = "127.0.0.1";
 
 const init = async () => {
   let inProgress = true;
@@ -37,9 +35,7 @@ const init = async () => {
   while (inProgress) {
     const { nextStep } = await inquirer.prompt(confirmNextStep);
 
-    // const confirm = nextStep;
-
-    if (nextStep === "Yes, an engineer") {
+    if (nextStep === "engineer") {
       const engineerAnswers = await inquirer.prompt(engineerQuestions);
 
       const engineer = new Engineer(
@@ -50,7 +46,7 @@ const init = async () => {
       );
 
       engineerInfo.push(engineer);
-    } else if (nextStep === "Yes, an intern") {
+    } else if (nextStep === "intern") {
       const internAnswers = await inquirer.prompt(internQuestions);
 
       const intern = new Intern(
