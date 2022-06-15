@@ -34,7 +34,12 @@ const generateHTML = (manager, engineerInfo, internInfo) => {
       <body>        
         ${manager.createTeamName()}
         <main id="main">
-          ${manager.createManager()}
+          <section>
+            <h2 class="role-name">Manager</h2>
+            <div class="role-container">
+            ${manager.createManager()}
+            </div>
+          </section>
           <section>
             <h2 class="role-name">Engineers</h2>
             <div class="role-container">
