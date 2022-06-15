@@ -21,25 +21,24 @@ class Manager extends Employee {
     return this.role;
   }
 
+  createTeamName() {
+    return `<header><h1 class="team">${this.getTeamName()}</h1></header>`;
+  }
+
   createManager() {
-    return `
-        <h1 class="team">${this.teamName}</h1>
-        
-        <main id="main">
-            <h2 class="role-name">Manager</h2>
-            <div class="role-container">
-    
-                <div class="role">
-                    
-                    <p class="name">${this.name}</p>
-                    <p class="employee-id">Employee ID: ${this.id}</p>
-                    <a class="email" href="mailto:${this.email}">
-                        <i class="fa-solid fa-envelope" alt="eMail"></i> ${this.email}
-                    </a>
-                    <p class="location"><i class="fa-solid fa-building"></i> Office ${this.officeNumber}</p>
-                </div> 
-            </div>
-        </div>`;
+    return `<section>
+      <h2 class="role-name">Manager</h2>
+      <div class="role-container">
+        <div class="role">
+          <p class="name">${this.getName()}</p>
+          <p class="employee-id">Employee ID: ${this.getId()}</p>
+          <a class="email" href="mailto:${this.getEmail()}">
+            <i class="fa-solid fa-envelope" alt="eMail"></i> ${this.getEmail()}
+          </a>
+          <p class="location"><i class="fa-solid fa-building"></i> Office ${this.getOfficeNumber()}</p>
+        </div> 
+      </div>
+    </section>`;
   }
 }
 

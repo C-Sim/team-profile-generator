@@ -18,15 +18,15 @@ class Engineer extends Employee {
 
   createEngineer() {
     return `<div class="role">
-                    <p class="name">${this.name}</p>
-                    <p class="employee-id">Employee ID: ${this.id}</p>
-                    <a class="email" href="mailto:${this.email}">
-                        <i class="fa-solid fa-envelope" alt="eMail"></i> ${this.email}
-                    </a>
-                    <p><a class="github" href="https://github.com/${this.gitHub}" target="_blank"
-                    ><i class="fa-brands fa-github" alt="GitHub"></i> GitHub
-                    </a></p>
-            </div>`;
+      <p class="name">${this.getName()}</p>
+      <p class="employee-id">Employee ID: ${this.getId()}</p>
+      <a class="email" href="mailto:${this.getEmail()}">
+        <i class="fa-solid fa-envelope" alt="eMail"></i> ${this.getEmail()}
+      </a>
+      <p><a class="github" href="https://github.com/${this.getGitHub()}" target="_blank"
+      ><i class="fa-brands fa-github" alt="GitHub"></i> GitHub
+      </a></p>
+    </div>`;
   }
 }
 
