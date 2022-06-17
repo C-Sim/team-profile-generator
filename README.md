@@ -1,27 +1,18 @@
 # team-profile-generator ![badge](https://img.shields.io/badge/MIT-license-green)
 
-[Deployed GitHub URL](...)
 [Demo](...)
 
 ## Contents
 
 - [Description](#description)
-- [Installation](#installation)
 - [Usage](#usage)
-- [License](#license)
-
 - [Tests](#tests)
+- [License](#license)
 - [Questions](#questions)
 
 ## Description
 
 A Node.js command-line application that takes in information about employees on an engineering team, then generates an HTML webpage that displays a profile for each team member.
-
-## Installation
-
-```
-npm install
-```
 
 ## Usage
 
@@ -29,15 +20,15 @@ npm install
 npm start
 ```
 
-## License
-
-MIT
-
 ## Tests
 
 ```
 npm test
 ```
+
+## License
+
+MIT
 
 ## Questions
 
@@ -53,9 +44,16 @@ Please contact me via email at Cherelle.S@hotmail.com or via my GitHub repo at h
 </details>
 
 <details>
-<summary>Generated HTML</summary>
+<summary>Generated HTML sample - desktop</summary>
 
-![generated-html](./screenshots/rmg-sample.png)
+![generated-html-dt](dist/assets/screenshots/sample-desktop.png)
+
+</details>
+
+<details>
+<summary>Generated HTML sample - mobile</summary>
+
+![generated-html-mob](dist/assets/screenshots/sample-mobile.png)
 
 </details>
 <br>
