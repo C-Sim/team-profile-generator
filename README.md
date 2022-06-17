@@ -1,6 +1,6 @@
 # team-profile-generator ![badge](https://img.shields.io/badge/MIT-license-green)
 
-[Demo](...)
+[Demo](https://drive.google.com/file/d/1y5Z_9yz278-IN78ka1i0RD4YklBlRgDE/view?usp=sharing)
 
 ## Contents
 
@@ -39,7 +39,7 @@ Please contact me via email at Cherelle.S@hotmail.com or via my GitHub repo at h
 <details>
 <summary>Terminal User Journey</summary>
 
-![terminal](./screenshots/rmg-terminal.png)
+![terminal](dist/assets/screenshots/terminal-ux.png)
 
 </details>
 
