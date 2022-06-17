@@ -54,7 +54,7 @@ const generateHTML = (manager, engineerInfo, internInfo) => {
           </section>
         </main>
         <footer class="footer">
-            <i class="fa-solid fa-crown"></i> Created by Cherelle Simpson &copy 2022
+            <i class="fa-solid fa-crown"></i> Created by C-Sim &copy 2022
         </footer>
       </body>
     </html>`;
