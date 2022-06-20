@@ -34,6 +34,19 @@ MIT
 
 Please contact me via email at Cherelle.S@hotmail.com or via my GitHub repo at https://github.com/C-Sim
 
+## Technologies
+
+- Inquirer
+- Node
+- Jest
+- Path
+- Open
+- fs
+- Figlet
+- Chalk
+- HTML
+- CSS
+
 ## Screenshots
 
 <details>
