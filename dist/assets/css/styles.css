@@ -1,0 +1,99 @@
+:root {
+  --powder-blue: #b8d8d8ff;
+  --cadet-blue: #c8c8c8;
+  --deep-space-sparkle: #4f6367ff;
+  --beige: #eef5dbff;
+  --orange-red-crayola: #fe5f55ff;
+}
+
+* {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 100;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  background-color: var(--cadet-blue);
+}
+
+.team {
+  text-align: center;
+  color: var(--cadet-blue);
+  background-color: var(--deep-space-sparkle);
+  padding: 8px;
+  margin: 0;
+}
+
+.role-name {
+  text-align: center;
+  color: var(--beige);
+}
+
+.role-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  margin: 8px;
+  border: solid 1px var(--deep-space-sparkle);
+  font-size: smaller;
+  width: 180px;
+  height: 150px;
+}
+
+.name {
+  color: var(--beige);
+  font-weight: 400;
+  font-size: medium;
+}
+
+.employee-id {
+  color: var(--deep-space-sparkle);
+}
+
+.email {
+  text-decoration: none;
+  color: var(--deep-space-sparkle);
+}
+
+.email:hover {
+  color: var(--orange-red-crayola);
+}
+
+.github {
+  text-decoration: none;
+  color: var(--deep-space-sparkle);
+}
+
+.github:hover {
+  color: var(--orange-red-crayola);
+}
+
+.location {
+  color: var(--deep-space-sparkle);
+}
+
+.vacancy {
+  text-align: center;
+  margin: 4px;
+}
+
+.footer {
+  background-color: var(--deep-space-sparkle);
+  color: var(--cadet-blue);
+  text-align: center;
+  padding: 8px;
+  margin-top: 18px;
+  width: 100%;
+}
