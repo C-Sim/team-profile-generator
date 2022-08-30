@@ -39,6 +39,7 @@ Please contact me via email at Cherelle.S@hotmail.com or via my GitHub repo at h
 - Inquirer
 - Node
 - Jest
+- Nodemon
 - Path
 - Open
 - fs

@@ -1,5 +1,5 @@
 const generateEngineers = (engineerInfo) => {
-  if (engineerInfo.length > 0) {
+  if (engineerInfo.length) {
     return engineerInfo.map((engineer) => engineer.createEngineer()).join("");
   } else {
     return `<p class="vacancy"> There are currently no Engineers in the team.</br></br>Contact the Manager via the email address above to apply for a role.</p>`;
