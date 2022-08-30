@@ -22,13 +22,7 @@ const init = async () => {
 
   const managerAnswers = await inquirer.prompt(managerQuestions);
 
-  const manager = new Manager(
-    managerAnswers.name,
-    managerAnswers.id,
-    managerAnswers.email,
-    managerAnswers.officeNumber,
-    managerAnswers.teamName
-  );
+  const manager = new Manager(managerAnswers);
 
   while (inProgress) {
     const { nextStep } = await inquirer.prompt(confirmNextStep);
@@ -36,23 +30,13 @@ const init = async () => {
     if (nextStep === "engineer") {
       const engineerAnswers = await inquirer.prompt(engineerQuestions);
 
-      const engineer = new Engineer(
-        engineerAnswers.name,
-        engineerAnswers.id,
-        engineerAnswers.email,
-        engineerAnswers.gitHub
-      );
+      const engineer = new Engineer(engineerAnswers);
 
       engineerInfo.push(engineer);
     } else if (nextStep === "intern") {
       const internAnswers = await inquirer.prompt(internQuestions);
 
-      const intern = new Intern(
-        internAnswers.name,
-        internAnswers.id,
-        internAnswers.email,
-        internAnswers.school
-      );
+      const intern = new Intern(internAnswers);
 
       internInfo.push(intern);
     } else {
