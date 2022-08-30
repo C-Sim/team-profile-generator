@@ -1,0 +1,37 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Command line app that generates a webpage displaying a profile for each team member",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C-Sim/team-profile-generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/C-Sim/team-profile-generator/issues"
+  },
+  "homepage": "https://github.com/C-Sim/team-profile-generator#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "figlet": "^1.5.2",
+    "inquirer": "^8.2.4",
+    "open": "^8.4.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16"
+  }
+}
